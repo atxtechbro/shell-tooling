@@ -1,7 +1,6 @@
 use pyo3::prelude::*;
 use clipboard_win::raw as clipboard;
 use std::process::Command;
-use winapi::um::consoleapi::GetConsoleHistoryInfo;
 use std::io::Result;
 
 #[pyfunction]
