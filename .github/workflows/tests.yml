@@ -27,7 +27,7 @@ jobs:
           pip install setuptools_rust
       - name: Install package
         run: |
-          pip install -e . --config-settings editable.build.no-isolation=1
+          pip install --no-build-isolation -e .
       - name: Run tests
         run: |
           pytest tests/ 
