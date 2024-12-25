@@ -24,6 +24,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install pytest setuptools-rust wheel
           pip install setuptools_rust
+      - name: Build Rust extension
+        run: |
+          cargo build --release
       - name: Install package
         run: |
           pip install --no-build-isolation -e .
