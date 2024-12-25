@@ -1,6 +1,7 @@
 import pytest
 from grabout.grabout import format_output, run_command, grab_output
 import platform
+import os
 
 def test_run_command():
     """Test running a simple command."""
@@ -33,11 +34,12 @@ def test_grab_output():
     assert "Hello World" in result
 
 @pytest.mark.skipif(
-    platform.system() == "Windows",
-    reason="Last command feature not implemented on Windows"
+    platform.system() == "Windows" or "bash" not in os.environ.get("SHELL", ""),
+    reason="Last command feature not implemented on Windows or not running in bash"
 )
 def test_grab_output_last_command():
-    """Test grabbing output of last command (Unix-like systems only)."""
-    # This test will only run on Unix-like systems
+    """Test grabbing output of last command (Unix-like systems with bash only)."""
+    # Run a command first to ensure there's history
+    run_command("echo 'test history'")
     result = grab_output()
     assert "Command:" in result 

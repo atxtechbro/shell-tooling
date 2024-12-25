@@ -1,7 +1,5 @@
 use pyo3::prelude::*;
-use clipboard_win::raw as clipboard;
 use std::process::Command;
-use std::io::Result;
 
 #[pyfunction]
 fn get_last_command_windows() -> PyResult<String> {
@@ -14,8 +12,8 @@ fn get_last_command_windows() -> PyResult<String> {
 
 #[pyfunction]
 fn get_last_command_unix() -> PyResult<String> {
-    let output = Command::new("fc")
-        .args(&["-ln", "-2", "-2"])
+    let output = Command::new("bash")
+        .args(&["-c", "fc -ln -2 -2"])
         .output()?;
     
     Ok(String::from_utf8_lossy(&output.stdout).trim().to_string())
@@ -25,7 +23,8 @@ fn get_last_command_unix() -> PyResult<String> {
 fn set_clipboard_content(content: &str) -> PyResult<()> {
     #[cfg(target_os = "windows")]
     {
-        clipboard::set_clipboard_string(&content).map_err(|e| {
+        use clipboard_win::set_clipboard_string;
+        set_clipboard_string(content).map_err(|e| {
             PyErr::new::<pyo3::exceptions::PyRuntimeError, _>(e.to_string())
         })?;
     }

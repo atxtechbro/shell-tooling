@@ -1,7 +1,9 @@
 import os
 import platform
 from typing import Optional, Tuple
-from . import grabout_rust
+from .. import grabout_rust
+
+__all__ = ['format_output', 'run_command', 'grab_output']
 
 def get_last_command() -> str:
     """Get the last command from shell history using native implementations."""
