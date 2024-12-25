@@ -20,11 +20,13 @@ jobs:
         with:
           toolchain: stable
           override: true
-      - name: Install dependencies
+      - name: Install build dependencies
         run: |
           python -m pip install --upgrade pip
           pip install pytest setuptools-rust wheel
           pip install setuptools_rust
+      - name: Install package
+        run: |
           pip install -e . --config-settings editable.build.no-isolation=1
       - name: Run tests
         run: |
