@@ -10,5 +10,5 @@ crate-type = ["cdylib"]
 [dependencies]
 pyo3 = { version = "0.18", features = ["extension-module"] }
 clipboard-win = "4.5"
-winapi = { version = "0.3", features = ["consoleapi"] }
+winapi = { version = "0.3", features = ["consoleapi", "um"] }
 x11-clipboard = "0.7" 

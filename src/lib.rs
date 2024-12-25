@@ -1,5 +1,5 @@
 use pyo3::prelude::*;
-use clipboard_win::{formats, set_clipboard};
+use clipboard_win::raw as clipboard;
 use std::process::Command;
 use winapi::um::consoleapi::GetConsoleHistoryInfo;
 use std::io::Result;
@@ -26,7 +26,7 @@ fn get_last_command_unix() -> PyResult<String> {
 fn set_clipboard_content(content: &str) -> PyResult<()> {
     #[cfg(target_os = "windows")]
     {
-        formats::Unicode.write_clipboard(&content).map_err(|e| {
+        clipboard::set_clipboard_string(&content).map_err(|e| {
             PyErr::new::<pyo3::exceptions::PyRuntimeError, _>(e.to_string())
         })?;
     }
