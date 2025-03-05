@@ -13,8 +13,7 @@ elif [[ $# -eq 0 ]]; then
   # Get the repository owner and name from the origin remote
   remote_url=$(git remote get-url origin)
   repo_owner=$(echo "$remote_url" | sed -E 's#.*github.com[:/]([^/]+)/.*#\1#')
-  repo_name=$(echo "$remote_url" | sed -E 's#.*github.com[:/].*/([^/]+).*#\1#')
-
+  repo_name=$(echo "$remote_url" | sed -E 's#.*github.com[:/].*/([^/]+).*#\1#' | sed 's/\.git$//') # Remove .git
   # Log the repository information
   echo "Repository owner: $repo_owner"
   echo "Repository name: $repo_name"
