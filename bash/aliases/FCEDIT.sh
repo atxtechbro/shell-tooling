@@ -1,1 +1,1 @@
-export FCEDIT='code'
+export FCEDIT='nvim'
